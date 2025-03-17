@@ -1,13 +1,14 @@
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
 import {
+  Image,
+  Modal,
   SafeAreaView,
   StyleSheet,
   Text,
-  View,
   TextInput,
-  Modal,
   TouchableOpacity,
+  View,
 } from "react-native";
 
 export default function App() {
@@ -15,6 +16,14 @@ export default function App() {
   const [cheatModalVisible, setCheatModalVisible] = useState(false);
   const [resetModalVisible, setResetModalVisible] = useState(false);
   const [cheatValue, setCheatValue] = useState("");
+
+  const images = Array.from({ length: counter }, (_, i) => (
+    <Image
+      key={i}
+      source={require("./assets/results/cat.jpg")}
+      style={{ width: 20, height: 20 }}
+    />
+  ));
 
   const resetCounter = () => {
     setCounter(0);
@@ -50,6 +59,9 @@ export default function App() {
       <TouchableOpacity style={styles.button} onPress={handleCheatClick}>
         <Text style={styles.buttonText}>Cheat</Text>
       </TouchableOpacity>
+
+      {/* Отображение изображений */}
+      <View style={styles.immagesContainer}>{images}</View>
 
       {/* Modal для ввода числа (чит) */}
       <Modal visible={cheatModalVisible} animationType="slide" transparent>
@@ -116,6 +128,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     paddingTop: 30,
     alignItems: "center",
+  },
+  immagesContainer: {
+    height: 400,
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
   },
   counterText: {
     fontSize: 24,
